@@ -6,7 +6,7 @@ Next version
 ============
 
 - Dropped support for Python < 3.10.
-- Added Python 3.14 to the CI matrix.
+- Added Python 3.14 and 3.15 to the CI matrix.
 
 2.7 (2026-10-25)
 ================
