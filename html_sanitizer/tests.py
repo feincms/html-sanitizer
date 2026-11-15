@@ -82,8 +82,10 @@ class SanitizerTestCase(TestCase):
         entries = (
             ('<a href="/foo">foo</a>', None),
             (
-                '<a href="/foo" name="bar" target="some" title="baz"'
-                ' cookies="yesplease">foo</a>',
+                (
+                    '<a href="/foo" name="bar" target="some" title="baz"'
+                    ' cookies="yesplease">foo</a>'
+                ),
                 '<a href="/foo" name="bar" target="some" title="baz">foo</a>',
             ),
             ('<a href="http://somewhere.else">foo</a>', None),
@@ -115,8 +117,10 @@ class SanitizerTestCase(TestCase):
             ("<li><p>foo</p></li>", "<li> foo </li>"),
             ("<li>&nbsp;<p>foo</p> &#160; </li>", "<li> foo </li>"),
             (
-                "<li>foo<p>bar<strong>xx</strong>rab</p><strong>baz</strong>"
-                "a<p>b</p>c</li>",
+                (
+                    "<li>foo<p>bar<strong>xx</strong>rab</p><strong>baz</strong>"
+                    "a<p>b</p>c</li>"
+                ),
                 "<li>foo bar <strong>xx</strong>rab<strong>baz</strong>a b c</li>",
             ),
         )
@@ -232,8 +236,10 @@ class SanitizerTestCase(TestCase):
             [
                 (
                     "<p>https://github.com/</p>",
-                    '<p><a href="https://github.com/"'
-                    ' rel="nofollow">https://github.com/</a></p>',
+                    (
+                        '<p><a href="https://github.com/"'
+                        ' rel="nofollow">https://github.com/</a></p>'
+                    ),
                 )
             ],
             sanitizer=sanitizer,
@@ -279,8 +285,10 @@ class SanitizerTestCase(TestCase):
                     '<p class="centered">Test <span class="bla">span</span></p>',
                 ),
                 (
-                    '<p class="centered">Test <span class="bla">span</span>'
-                    '<span class="blub">span</span></p>',
+                    (
+                        '<p class="centered">Test <span class="bla">span</span>'
+                        '<span class="blub">span</span></p>'
+                    ),
                     '<p class="centered">Test <span class="bla">spanspan</span></p>',
                 ),
                 ('<h1 class="centered">Test</h1>', '<h1 class="centered">Test</h1>'),
@@ -309,14 +317,20 @@ class SanitizerTestCase(TestCase):
         self.run_tests(
             [
                 (
-                    '<p class="centered">Test <span class="bla">span</span>'
-                    '<span class="blub">span</span></p>',
-                    '<p class="centered">Test <span class="bla">span</span>'
-                    '<span class="blub">span</span></p>',
+                    (
+                        '<p class="centered">Test <span class="bla">span</span>'
+                        '<span class="blub">span</span></p>'
+                    ),
+                    (
+                        '<p class="centered">Test <span class="bla">span</span>'
+                        '<span class="blub">span</span></p>'
+                    ),
                 ),
                 (
-                    '<p class="centered">Test <span class="bla">span</span>'
-                    '<span class="bla">span</span></p>',
+                    (
+                        '<p class="centered">Test <span class="bla">span</span>'
+                        '<span class="bla">span</span></p>'
+                    ),
                     '<p class="centered">Test <span class="bla">spanspan</span></p>',
                 ),
             ],
@@ -423,18 +437,26 @@ Mitarbeitenden folgende geschäftlich bedingten Auslagen ersetzt:</font></p>
         self.run_tests(
             [
                 (
-                    "\u200a\u2001\u202f\u2004\xa0\u2007\u2002\u2000"
-                    "\u2003\u2009\u205f\u2005\u2006\u2008\u3000",
-                    "\u200a\u2003\u202f\u2004\xa0\u2007\u2002\u2002"
-                    "\u2003\u2009\u205f\u2005\u2006\u2008\u3000",
+                    (
+                        "\u200a\u2001\u202f\u2004\xa0\u2007\u2002\u2000"
+                        "\u2003\u2009\u205f\u2005\u2006\u2008\u3000"
+                    ),
+                    (
+                        "\u200a\u2003\u202f\u2004\xa0\u2007\u2002\u2002"
+                        "\u2003\u2009\u205f\u2005\u2006\u2008\u3000"
+                    ),
                 ),
                 (
-                    "Hello This is a paragraph. \n"
-                    "\tHello. This is a tabled line."
-                    "Hello.This is beginning of the end.\r",
-                    "Hello This is a paragraph. \n"
-                    "\tHello. This is a tabled line."
-                    "Hello.This is beginning of the end.\n",
+                    (
+                        "Hello This is a paragraph. \n"
+                        "\tHello. This is a tabled line."
+                        "Hello.This is beginning of the end.\r"
+                    ),
+                    (
+                        "Hello This is a paragraph. \n"
+                        "\tHello. This is a tabled line."
+                        "Hello.This is beginning of the end.\n"
+                    ),
                 ),
                 (
                     "something    <br>somethingelse    ",
@@ -450,8 +472,10 @@ Mitarbeitenden folgende geschäftlich bedingten Auslagen ersetzt:</font></p>
         self.run_tests(
             [
                 (
-                    "\u200a\u2001\u202f\u2004\xa0\u2007\u2002\u2000"
-                    "\u2003\u2009\u205f\u2005\u2006\u2008\u3000",
+                    (
+                        "\u200a\u2001\u202f\u2004\xa0\u2007\u2002\u2000"
+                        "\u2003\u2009\u205f\u2005\u2006\u2008\u3000"
+                    ),
                     " ",
                 )
             ],

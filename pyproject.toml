@@ -40,12 +40,11 @@ dependencies = [
 ]
 urls.Homepage = "https://github.com/feincms/html-sanitizer/"
 
-[tool.hatch.version]
-path = "html_sanitizer/__init__.py"
+[tool.hatch]
+version.path = "html_sanitizer/__init__.py"
 
 [tool.ruff]
 target-version = "py310"
-
 fix = true
 show-fixes = true
 lint.extend-select = [

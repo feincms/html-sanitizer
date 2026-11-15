@@ -273,7 +273,7 @@ class Sanitizer:
         try:
             doc = lxml.html.fromstring(html)
             lxml.html.tostring(doc, encoding="utf-8")
-        except Exception:  # We could and maybe should be more specific...
+        except Exception:  # noqa: BLE001 -- we could and maybe should be more specific
             from lxml.html import soupparser  # noqa: PLC0415
 
             doc = soupparser.fromstring(html)
@@ -359,7 +359,7 @@ class Sanitizer:
 
             if not element.text:
                 # No text before first child and first child is a <br>: Drop it
-                first = list(element)[0] if list(element) else None
+                first = next(iter(element), None)
                 if first is not None and first.tag in self.whitespace:
                     first.drop_tag()
                     # Maybe we have more than one <br>
