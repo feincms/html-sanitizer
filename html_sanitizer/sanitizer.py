@@ -177,7 +177,7 @@ DEFAULT_SETTINGS = {
 def coerce_to_set(value):
     if isinstance(value, set):
         return value
-    elif isinstance(value, (tuple, list)):
+    elif isinstance(value, tuple | list):
         return set(value)
     raise TypeError(f"Expected a set but got value {value!r} of type {type(value)}")
 
