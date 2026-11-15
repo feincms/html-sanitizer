@@ -201,13 +201,13 @@ Next version
 .. _feincms-cleanse: https://pypi.python.org/pypi/feincms-cleanse/
 .. _html-sanitizer: https://pypi.python.org/pypi/html-sanitizer/
 
-.. _1.0: https://github.com/matthiask/html-sanitizer/commit/4a995538f
-.. _1.1: https://github.com/matthiask/html-sanitizer/compare/1.0...1.1
-.. _1.2: https://github.com/matthiask/html-sanitizer/compare/1.1...1.2
-.. _1.3: https://github.com/matthiask/html-sanitizer/compare/1.2...1.3
-.. _1.4: https://github.com/matthiask/html-sanitizer/compare/1.3...1.4
-.. _1.5: https://github.com/matthiask/html-sanitizer/compare/1.4...1.5
-.. _1.6: https://github.com/matthiask/html-sanitizer/compare/1.5...1.6
-.. _1.7: https://github.com/matthiask/html-sanitizer/compare/1.6...1.7
-.. _1.8: https://github.com/matthiask/html-sanitizer/compare/1.7...1.8
-.. _1.9: https://github.com/matthiask/html-sanitizer/compare/1.8...1.9
+.. _1.0: https://github.com/feincms/html-sanitizer/commit/4a995538f
+.. _1.1: https://github.com/feincms/html-sanitizer/compare/1.0...1.1
+.. _1.2: https://github.com/feincms/html-sanitizer/compare/1.1...1.2
+.. _1.3: https://github.com/feincms/html-sanitizer/compare/1.2...1.3
+.. _1.4: https://github.com/feincms/html-sanitizer/compare/1.3...1.4
+.. _1.5: https://github.com/feincms/html-sanitizer/compare/1.4...1.5
+.. _1.6: https://github.com/feincms/html-sanitizer/compare/1.5...1.6
+.. _1.7: https://github.com/feincms/html-sanitizer/compare/1.6...1.7
+.. _1.8: https://github.com/feincms/html-sanitizer/compare/1.7...1.8
+.. _1.9: https://github.com/feincms/html-sanitizer/compare/1.8...1.9
