@@ -1,3 +1,4 @@
+import time
 from unittest import TestCase
 
 from .sanitizer import Sanitizer
@@ -830,3 +831,74 @@ git commit
             ],
             sanitizer=sanitizer,
         )
+
+    def test_merge_keeps_whitespace_between_elements(self):
+        self.run_tests(
+            [
+                (
+                    "<strong>a</strong> <strong><em>b</em></strong>",
+                    "<strong>a <em>b</em></strong>",
+                ),
+                (
+                    "<strong><em>a</em></strong> <strong>b</strong>",
+                    "<strong><em>a</em> b</strong>",
+                ),
+                (
+                    "<strong>a <em>b</em> </strong>  <strong> c</strong>",
+                    "<strong>a <em>b</em> c</strong>",
+                ),
+                (
+                    "<em><strong>a</strong></em><em><strong>b</strong></em>",
+                    "<em><strong>ab</strong></em>",
+                ),
+            ]
+        )
+
+    def test_many_elements(self):
+        n = 1000
+        self.run_tests(
+            [
+                ("<b>x</b>" * n, "<strong>" + "x" * n + "</strong>"),
+                (
+                    "<strong>x</strong> " * n,
+                    "<strong>" + "x " * (n - 1) + "x</strong> ",
+                ),
+                ("<p></p>" * n + "x", "x"),
+                ("<b></b>y" * n, "y" * n),
+                ("<span>x</span>y" * n, "xy" * n),
+                ("<script>x</script>y" * n, "y" * n),
+                ("<marquee>x</marquee>y" * n, "xy" * n),
+                ("<p>x" + "<br>" * n + "</p>", "<p>x<br></p>"),
+                ("<p>" + "<br>" * n + "x</p>", "<p>x</p>"),
+                ("<li>" + "<p>x</p>" * n + "</li>", "<li>" + " x" * n + " </li>"),
+            ]
+        )
+
+    def test_linear_time(self):
+        """Sanitizing many adjacent elements must not take quadratic time"""
+
+        def duration(html):
+            start = time.perf_counter()
+            default_sanitizer.sanitize(html)
+            return time.perf_counter() - start
+
+        n = 4000
+        for pattern in [
+            "<b>x</b>",
+            "<strong>x</strong> ",
+            "<p></p>",
+            "<b></b>y",
+            "<br> ",
+            "<p><br>",
+            "<li><p>x</p>",
+            "<span>x</span>y",
+            "<script>x</script>y",
+            "<marquee>x</marquee>y",
+            "<!--x-->y",
+        ]:
+            with self.subTest(pattern=pattern):
+                small = min(duration(pattern * n) for _ in range(3))
+                large = duration(pattern * 4 * n)
+                # Four times the input should take around four times as long,
+                # not sixteen times.
+                self.assertLess(large, 10 * small)

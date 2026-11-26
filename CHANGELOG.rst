@@ -7,6 +7,16 @@ Next version
 
 - Dropped support for Python < 3.10.
 - Added Python 3.14 and 3.15 to the CI matrix.
+- Fixed a denial of service vulnerability (GHSA-7h6x-cpq2-m328): Sanitizing
+  HTML with many adjacent elements (for example ``<b>x</b>`` or ``<p></p>``
+  repeated tens of thousands of times) took quadratic time. Merging adjacent
+  elements and removing elements now take linear time. This includes the
+  elements removed by lxml-html-clean's ``Cleaner``, which removes them one
+  by one in quadratic time.
+- Adjacent elements are now merged after all other processing. This keeps
+  the whitespace between merged elements, which was lost when the following
+  element started with a child element, and also merges elements which only
+  became adjacent after their children were merged.
 
 2.7 (2026-10-25)
 ================
