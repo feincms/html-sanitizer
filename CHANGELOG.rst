@@ -2,8 +2,8 @@
 Change log
 ==========
 
-Next version
-============
+2.8 (2026-11-26)
+================
 
 - Dropped support for Python < 3.10.
 - Added Python 3.14 and 3.15 to the CI matrix.
@@ -12,7 +12,8 @@ Next version
   repeated tens of thousands of times) took quadratic time. Merging adjacent
   elements and removing elements now take linear time. This includes the
   elements removed by lxml-html-clean's ``Cleaner``, which removes them one
-  by one in quadratic time.
+  by one in quadratic time. Thanks to Mohammad Adnan (CyStack red team) for
+  the report.
 - Adjacent elements are now merged after all other processing. This keeps
   the whitespace between merged elements, which was lost when the following
   element started with a child element, and also merges elements which only
